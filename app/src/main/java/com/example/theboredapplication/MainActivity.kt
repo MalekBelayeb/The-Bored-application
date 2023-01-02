@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import com.example.theboredapplication.model.QuoteEntity
+import com.example.theboredapplication.view.FavoriteFragment
 import com.example.theboredapplication.view.QuoteFragment
 
 class MainActivity : AppCompatActivity() {
@@ -37,13 +38,14 @@ class MainActivity : AppCompatActivity() {
         mid_button = findViewById<Button>(R.id.mid_button)
         right_button = findViewById<Button>(R.id.right_button)
 
-        mid_button.setOnClickListener{
 
-        }
 
         left_button.setOnClickListener{
             navigateToRandomQuotePage()
             println("from shared pref"+mSharedPref.getString("tmp", "").toString())
+        }
+        mid_button.setOnClickListener{
+            displaySavedQuotes()
         }
 
         right_button.setOnClickListener {
@@ -64,6 +66,10 @@ class MainActivity : AppCompatActivity() {
         }catch (ex: Exception){
                 println(ex)
         }
+    }
+
+    private fun displaySavedQuotes(){
+        supportFragmentManager.beginTransaction().replace(R.id.main_container,FavoriteFragment()).commit()
 
     }
 }
