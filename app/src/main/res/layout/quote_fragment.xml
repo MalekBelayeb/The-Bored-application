@@ -14,6 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="start|center_vertical"
         android:text=""
-        android:gravity="start|center_vertical" />
+        android:textAlignment="center"
+        android:textSize="34sp" />
 </androidx.appcompat.widget.LinearLayoutCompat>
