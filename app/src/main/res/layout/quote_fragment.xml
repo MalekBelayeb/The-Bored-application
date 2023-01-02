@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat android:layout_height="match_parent"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="0dp" xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:backgroundTint="#66D9D9D9"
+    android:orientation="vertical">
 
-<View
-    android:layout_width="match_parent"
-    android:layout_height="100dp"></View>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"></View>
 
     <TextView
         android:id="@+id/quote_label"
@@ -18,5 +20,6 @@
         android:gravity="start|center_vertical"
         android:text=""
         android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="34sp" />
 </androidx.appcompat.widget.LinearLayoutCompat>

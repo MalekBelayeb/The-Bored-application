@@ -4,13 +4,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import com.example.theboredapplication.model.QuoteEntity
 import com.example.theboredapplication.view.FavoriteFragment
 import com.example.theboredapplication.view.QuoteFragment
+import kotlin.math.abs
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , GestureDetector.OnGestureListener  {
 
     lateinit var left_button: Button
     lateinit var mid_button: Button
@@ -18,10 +21,12 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mSharedPref: SharedPreferences
 
+    lateinit var gestureDetector: GestureDetector
+    private val swipeThreshold = 100
+    private val swipeVelocityThreshold = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-// Remember that you should never show the action bar if the
-// status bar is hidden, so hide that too if necessary.
         actionBar?.hide()
 
         super.onCreate(savedInstanceState)
@@ -29,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         actionBar?.hide()
         supportActionBar?.hide();
+
+        gestureDetector = GestureDetector(this)
 
         mSharedPref = getSharedPreferences("sharedP", Context.MODE_PRIVATE)
 
@@ -71,5 +78,52 @@ class MainActivity : AppCompatActivity() {
     private fun displaySavedQuotes(){
         supportFragmentManager.beginTransaction().replace(R.id.main_container,FavoriteFragment()).commit()
 
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return if (gestureDetector.onTouchEvent(event)) {
+            true
+        }
+        else {
+            super.onTouchEvent(event)
+        }
+    }
+
+    override fun onDown(p0: MotionEvent?): Boolean {
+        return false
+    }
+    override fun onShowPress(p0: MotionEvent?) {
+        return
+    }
+    override fun onSingleTapUp(p0: MotionEvent?): Boolean {
+        return false
+    }
+    override fun onScroll(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean {
+        return false
+    }
+    override fun onLongPress(p0: MotionEvent?) {
+        return
+    }
+
+    override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+        try {
+            val diffY = e2.y - e1.y
+            val diffX = e2.x - e1.x
+            if (abs(diffX) > abs(diffY)) {
+                if (abs(diffX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold) {
+                    if (diffX > 0) {
+                        navigateToRandomQuotePage()
+                    }
+                    else {
+                        addQuoteToFavorite(mSharedPref.getString("tmp", "").toString())
+                        navigateToRandomQuotePage()
+                    }
+                }
+            }
+        }
+        catch (exception: Exception) {
+            exception.printStackTrace()
+        }
+        return true
     }
 }
