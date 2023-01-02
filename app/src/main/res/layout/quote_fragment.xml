@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_margin="0dp" xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="100dp"></View>
+
+    <TextView
+        android:id="@+id/quote_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text=""
+        android:gravity="start|center_vertical" />
+</androidx.appcompat.widget.LinearLayoutCompat>
